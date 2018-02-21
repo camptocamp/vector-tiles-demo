@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Toggle Layer</title>
+        <meta charset="UTF-8">
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+        <style>
+            body { margin:0; padding:0; }
+            #map { position:absolute; top:0; bottom:0; width:100%; }
+        </style>
+    </head>
+    <body>
+        <style>
+            #menu {
+                position: absolute;
+                background: #fff;
+                padding: 10px;
+                font-family: 'Open Sans', sans-serif;
+            }
+        </style>
+        
+        <button id = "mybtn" style="z-index: 9999" onclick="changeLayer()">Change Style </button>
+        <button id ="bestbtnever" onclick="findMyHouse()">Find my House</button>
+        <button id="addLayer" onclick="addThirdPartyLayer()">add Layer</button>
+        <div id='map' style="z-index: -1"></div>
+        
+        <script src="ScriptChangeLayer.js"></script>
+    </body>
+
+</html>
