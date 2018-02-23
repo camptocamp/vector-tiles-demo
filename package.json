@@ -1,0 +1,19 @@
+{
+  "name": "html",
+  "version": "1.0.0",
+  "description": "First package.json",
+  "main": "ScriptChangeLayer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camptocamp/vector-tiles-demo.git"
+  },
+  "author": "Nataniel Hofer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/camptocamp/vector-tiles-demo/issues"
+  },
+  "homepage": "https://github.com/camptocamp/vector-tiles-demo#readme"
+}
