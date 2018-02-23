@@ -1,6 +1,8 @@
-mapboxgl.accessToken = "pk.eyJ1IjoibmhvZmVyIiwiYSI6ImNqZHViYWNnMjJzbXIyd3Q3MGI4emU5ZTAifQ.AKITUlaDoEzIkU2SGn6e1A";
+//const mapboxgl = require('mapbox-gl');
+//alert('Hello, world !')
+mapboxgl.accessToken = "pk.eyJ1IjoibmhvZmVyIiwiYSI6ImNqZHk5ZjRyNDB0aWQycW82MW1vOWViY3EifQ.NgdjIOFkAmVECB1lTsySSg";
 var map = new mapboxgl.Map({
-    style: 'mapbox://styles/mapbox/light-v9',
+    style: 'mapbox://styles/mapbox/streets-v9',//'http://localhost:8000/styles/osm-bright/style.json',
     center: [-74.0066, 40.7135],
     zoom: 15.5,
     pitch: 45,
@@ -18,6 +20,8 @@ function changeLayer() {
     }
     light = !light;
 }
+
+
 function findMyHouse() {
     map.setCenter([6.086763,46.173795]);
     map.setZoom(18.35);
@@ -38,4 +42,6 @@ function addThirdPartyLayer(){
     });
     console.log(map);
 }
-
+function setCustomStyle(){
+    map.setStyle('http://localhost:8000/basic_custom_style.json')
+}

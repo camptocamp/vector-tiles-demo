@@ -9,7 +9,7 @@ and open the template in the editor.
         <title>Toggle Layer</title>
         <meta charset="UTF-8">
         <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js' src='require.js'></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
         <style>
             body { margin:0; padding:0; }
@@ -25,10 +25,11 @@ and open the template in the editor.
                 font-family: 'Open Sans', sans-serif;
             }
         </style>
-        
         <button id = "mybtn" style="z-index: 9999" onclick="changeLayer()">Change Style </button>
         <button id ="bestbtnever" onclick="findMyHouse()">Find my House</button>
         <button id="addLayer" onclick="addThirdPartyLayer()">add Layer</button>
+        <button id="setCustomStyle" type="submit" classs= "bt btn-primary" 
+                onclick="setCustomStyle()">setCustomStyle</button>
         <div id='map' style="z-index: -1"></div>
         
         <script src="ScriptChangeLayer.js"></script>

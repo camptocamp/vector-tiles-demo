@@ -1,0 +1,21 @@
+{
+"version": 8,
+"name" : "basic style",
+"sources" : {
+  "geojson-lines": {
+    "type" : "geojson",
+    "data" : "./data/map.geojson"
+  }
+},
+"layers":[
+  {
+    "id" : "testLayer",
+    "source" : "geojson-lines",
+    "type" : "line",
+    "paint" : {
+      "line-color": "#ff00ff",
+      "line-width": 1
+    }
+  }
+]
+}
