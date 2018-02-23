@@ -43,5 +43,5 @@ function addThirdPartyLayer(){
     console.log(map);
 }
 function setCustomStyle(){
-    map.setStyle('http://localhost:8000/basic_custom_style.json')
+    map.setStyle('./basic_custom_style.json')
 }
