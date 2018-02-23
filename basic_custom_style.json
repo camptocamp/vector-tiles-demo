@@ -4,7 +4,7 @@
 "sources" : {
   "geojson-lines": {
     "type" : "geojson",
-    "data" : "./data/map.geojson"
+    "data" : "data/map.geojson"
   }
 },
 "layers":[
