@@ -1,8 +1,7 @@
-//const mapboxgl = require('mapbox-gl');
-//alert('Hello, world !')
+import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = "pk.eyJ1IjoibmhvZmVyIiwiYSI6ImNqZHk5ZjRyNDB0aWQycW82MW1vOWViY3EifQ.NgdjIOFkAmVECB1lTsySSg";
 var map = new mapboxgl.Map({
-    style: 'mapbox://styles/mapbox/streets-v9',//'http://localhost:8000/styles/osm-bright/style.json',
+    style: 'mapbox://styles/mapbox/light-v9',//'http://localhost:8000/styles/osm-bright/style.json',
     center: [-74.0066, 40.7135],
     zoom: 15.5,
     pitch: 45,
