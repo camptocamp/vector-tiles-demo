@@ -10,17 +10,6 @@ var map = new mapboxgl.Map({
     container: 'map'
 });
 
-var light = true;
-function changeLayer() {
-    if (light){
-        map.setStyle('mapbox://styles/mapbox/streets-v9');
-    }else{
-        map.setStyle('mapbox://styles/mapbox/light-v9');
-    }
-    light = !light;
-}
-
-
 function findMyHouse() {
     map.setCenter([6.086763,46.173795]);
     map.setZoom(18.35);
@@ -42,5 +31,26 @@ function addThirdPartyLayer(){
     console.log(map);
 }
 function setCustomStyle(){
-    map.setStyle('basic_custom_style.json')
+    map.setStyle('basic_custom_style.json');
 }
+var light = true;
+function changeLayer() {
+    if (light){
+        map.setStyle('mapbox://styles/mapbox/streets-v9');
+    }else{
+        map.setStyle('mapbox://styles/mapbox/light-v9');
+    }
+    light = !light;
+}
+console.log(document.getElementById("changeLr").id);
+document.getElementById("changeLr").addEventListener("click", changeLayer);
+document.getElementById("findMyHse").addEventListener("click", findMyHouse);
+document.getElementById("addThirdPartyLr").addEventListener("click", 
+addThirdPartyLayer);
+document.getElementById("setCustomSt").addEventListener("click", 
+setCustomStyle);
+
+
+
+
+
