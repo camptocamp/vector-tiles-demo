@@ -14,26 +14,30 @@ function findMyHouse() {
     map.setCenter([6.086763,46.173795]);
     map.setZoom(18.35);
 }
-var mapzenAPIKey = "mapzen-q8G243k";
 function addThirdPartyLayer(){
+    map.addSource("albaniaTiles", {
+        "type" : "vector",
+        "url" : "data/albania.mbtiles"
+    });
     map.addLayer({
-        "id": "mapzentest",
+        "id": "openmapTilesAlbania",
         "type": "fill",
-        "source": {
-            "type" :"vector",
-            "tiles":["https://vector.mapzen.com/osm/water/{z}/{x}/{y}.mvt?api_key="+mapzenAPIKey]
-        },
+        "source":"albaniaTiles",
         "source-layer":"water",
         "paint": {
-            "fill-color": "#48D1CC" //my violet water
+            "fill-color": "#ff00ff" //my violet water
         }
     });
     console.log(map);
 }
-function setCustomStyle(){
-    map.setStyle('basic_custom_style.json');
+function setMaputnikStyle(){
+    map.setStyle('styles/my_first_maputnik_style.json');
 }
 var light = true;
+
+function setMapboxStyle(){
+    map.setStyle('mapbox://styles/nhofer/cje5h47heffe42rt50nvm7zyn');
+}
 function changeLayer() {
     if (light){
         map.setStyle('mapbox://styles/mapbox/streets-v9');
@@ -42,13 +46,14 @@ function changeLayer() {
     }
     light = !light;
 }
-console.log(document.getElementById("changeLr").id);
+document.getElementById("setCustomStyleFromMapbox").
+        addEventListener("click", setMapboxStyle);
 document.getElementById("changeLr").addEventListener("click", changeLayer);
 document.getElementById("findMyHse").addEventListener("click", findMyHouse);
 document.getElementById("addThirdPartyLr").addEventListener("click", 
 addThirdPartyLayer);
-document.getElementById("setCustomSt").addEventListener("click", 
-setCustomStyle);
+document.getElementById("setMaputnikSt").addEventListener("click", 
+setMaputnikStyle);
 
 
 
