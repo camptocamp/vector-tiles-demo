@@ -46,6 +46,60 @@ function changeLayer() {
     }
     light = !light;
 }
+
+//piece of wms in new york
+function addWMS() {
+    // would like to check the id of the layer we have got to put before
+    // but since there is too many changesgit 
+    // var idOfFirstLayer = map.getStyle().layers[0].id   
+        map.addLayer({
+        'id': 'wms-test-layer',
+        'type': 'raster',
+        'source': {
+            'type': 'raster',
+            'tiles': [
+                'https://geodata.state.nj.us/imagerywms/Natural2015?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&width=256&height=256&layers=Natural2015'
+            ],
+            'tileSize': 256
+        },
+        'paint': {}
+    });
+    map.setPaintProperty('wms-test-layer', 'raster-opacity', 0.5);
+}
+
+//swisstopodata
+function addWMTS() {
+map.addSource("bauzonen", {
+        "attribution": "&copy; swisstopo",
+        "bounds": [
+            5.140242,
+            45.398181,
+            11.47757,
+            48.230651
+        ],
+        "maxzoom": 18,
+        "minzoom": 0,
+        "type": "raster",
+        "tileSize": 256,
+        "tiles": [
+            "https://wmts.geo.admin.ch/1.0.0/ch.are.bauzonen/default/current/3857/{z}/{x}/{y}.png"
+        ]
+    });
+
+    map.addLayer({
+        "id": "bauzonen",
+        "type": "raster",
+        "source": "bauzonen",
+        "minzoom": 0,
+        "maxzoom": 18,
+        "paint": {
+            "raster-opacity": 0.3,
+        }
+});
+}
+//bind buttons to functions
+document.getElementById("addWMS").addEventListener("click", addWMS);
+document.getElementById("addWMTS").addEventListener("click", addWMTS);
 document.getElementById("setCustomStyleFromMapbox").
         addEventListener("click", setMapboxStyle);
 document.getElementById("changeLr").addEventListener("click", changeLayer);
