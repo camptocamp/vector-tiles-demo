@@ -1,0 +1,202 @@
+{
+  "version": 8,
+  "name": "wander_web",
+  "metadata": {
+    "mapbox:autocomposite": false,
+    "mapbox:type": "template",
+    "maputnik:renderer": "mbgljs",
+    "openmaptiles:version": "3.x"
+  },
+  "sources": {
+    "m81y9dgny": {
+      "type": "vector",
+      "url": "http://localhost:8080/data/Test.json"
+    },
+    "Pixelkarte": {
+      "type": "raster",
+      "tiles": [
+        "https://wmts20.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg"
+      ],
+      "minzoom": 0,
+      "maxzoom": 22
+    },
+    "hiking_schweiz_mobil": {
+      "type": "vector",
+      "url": "http://localhost:8080/data/wander_web.json"
+    }
+  },
+  "glyphs": "https://demo.tileserver.org/fonts/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "bg",
+      "type": "background",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "background-color": "rgba(255, 255, 255, 1)"
+      }
+    },
+    {
+      "id": "background",
+      "type": "raster",
+      "source": "Pixelkarte"
+    },
+    {
+      "id": "wanderweg-outline",
+      "type": "line",
+      "source": "hiking_schweiz_mobil",
+      "source-layer": "newRoute",
+      "minzoom": 5,
+      "filter": [
+        "all",
+        [
+          "==",
+          "LAND",
+          "wander"
+        ]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": "rgba(37, 84, 33, 1)",
+        "line-width": {
+          "stops": [
+            [
+              6,
+              1
+            ],
+            [
+              7,
+              1
+            ],
+            [
+              11,
+              1
+            ],
+            [
+              12,
+              1
+            ],
+            [
+              13,
+              1
+            ]
+          ]
+        },
+        "line-opacity": {
+          "stops": [
+            [
+              6,
+              1
+            ],
+            [
+              8,
+              1
+            ],
+            [
+              10,
+              0.6
+            ],
+            [
+              12,
+              0.6
+            ]
+          ]
+        },
+        "line-offset": 0,
+        "line-blur": 0,
+        "line-gap-width": {
+          "stops": [
+            [
+              6,
+              4
+            ],
+            [
+              10,
+              4
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "wanderweg",
+      "type": "line",
+      "source": "hiking_schweiz_mobil",
+      "source-layer": "newRoute",
+      "minzoom": 5,
+      "filter": [
+        "all",
+        [
+          "==",
+          "LAND",
+          "wander"
+        ]
+      ],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "rgba(44, 195, 30, 1)",
+        "line-width": {
+          "stops": [
+            [
+              5,
+              6
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              11,
+              7
+            ],
+            [
+              12,
+              9
+            ],
+            [
+              13,
+              7
+            ]
+          ]
+        },
+        "line-opacity": {
+          "stops": [
+            [
+              6,
+              1
+            ],
+            [
+              8,
+              0.8
+            ],
+            [
+              10,
+              0.6
+            ],
+            [
+              12,
+              0.6
+            ]
+          ]
+        },
+        "line-offset": 0,
+        "line-blur": 0,
+        "line-gap-width": 0
+      }
+    }
+  ],
+  "sprites": "https://demo.tileserver.org/fonts/{fontstack}/{range}.pbf",
+  "id": "0dwxjligi"
+}

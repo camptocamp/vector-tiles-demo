@@ -66,7 +66,8 @@ function setSchweizMobile(){
 function switchLayer(layer) {
     var layerId = layer.target.id;
     switch(layerId) {
-        case 'basic', 'streets':    
+        case 'basic':
+        case 'streets':    
             map.setStyle('mapbox://styles/mapbox/' + layerId + '-v9');
             break;
         case 'simple-custom-maputnik':
