@@ -2,7 +2,7 @@ Requirements node v.6 with npm
 Usage :  
 clone the repository,then :  
 ############  
-$cd vector tiles demo  
+$cd vector-tiles-demo  
 $npm -i  
 $npm run dev  
 ############  
