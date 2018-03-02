@@ -1,0 +1,8 @@
+div.interactive {
+    position: relative;
+    background-color:#00000000;
+    z-index:0;
+}
+div.map {
+    z-index:-1;
+}

@@ -1,7 +1,8 @@
 import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = "pk.eyJ1IjoibmhvZmVyIiwiYSI6ImNqZHk5ZjRyNDB0aWQycW82MW1vOWViY3EifQ.NgdjIOFkAmVECB1lTsySSg";
+
 var map = new mapboxgl.Map({
-    style: 'mapbox://styles/mapbox/light-v9',//'http://localhost:8000/styles/osm-bright/style.json',
+    style: 'styles/SwissTopoHiking/wander_web.json',//'http://localhost:8000/styles/osm-bright/style.json',
     center: [-74.0066, 40.7135],
     zoom: 15.5,
     pitch: 45,
@@ -33,18 +34,9 @@ function addThirdPartyLayer(){
 function setMaputnikStyle(){
     map.setStyle('styles/my_first_maputnik_style.json');
 }
-var light = true;
 
 function setMapboxStyle(){
     map.setStyle('mapbox://styles/nhofer/cje5h47heffe42rt50nvm7zyn');
-}
-function changeLayer() {
-    if (light){
-        map.setStyle('mapbox://styles/mapbox/streets-v9');
-    }else{
-        map.setStyle('mapbox://styles/mapbox/light-v9');
-    }
-    light = !light;
 }
 
 //piece of wms in new york
@@ -66,6 +58,29 @@ function addWMS() {
     });
     map.setPaintProperty('wms-test-layer', 'raster-opacity', 0.5);
 }
+
+function setSchweizMobile(){
+   map.setStyle('styles/SwissTopoHiking/wander_web.json'); 
+}
+
+function switchLayer(layer) {
+    var layerId = layer.target.id;
+    switch(layerId) {
+        case 'basic', 'streets':    
+            map.setStyle('mapbox://styles/mapbox/' + layerId + '-v9');
+            break;
+        case 'simple-custom-maputnik':
+            setMaputnikStyle();
+            break;
+        case 'simple-custom-mapbox':
+            setMapboxStyle();
+            break;
+        case 'schweiz-mobile-like' :
+            setSchweizMobile();
+    }
+}
+
+
 
 //swisstopodata
 function addWMTS() {
@@ -97,17 +112,20 @@ map.addSource("bauzonen", {
         }
 });
 }
+//bind functions to menu
+
+var layerList = document.getElementById('menu');
+var inputs = layerList.getElementsByTagName('input');
+
+for (var i = 0; i < inputs.length; i++) {
+    inputs[i].onclick = switchLayer;
+}
 //bind buttons to functions
 document.getElementById("addWMS").addEventListener("click", addWMS);
 document.getElementById("addWMTS").addEventListener("click", addWMTS);
-document.getElementById("setCustomStyleFromMapbox").
-        addEventListener("click", setMapboxStyle);
-document.getElementById("changeLr").addEventListener("click", changeLayer);
 document.getElementById("findMyHse").addEventListener("click", findMyHouse);
 document.getElementById("addThirdPartyLr").addEventListener("click", 
 addThirdPartyLayer);
-document.getElementById("setMaputnikSt").addEventListener("click", 
-setMaputnikStyle);
 
 
 
