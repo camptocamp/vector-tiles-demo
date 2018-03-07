@@ -1,0 +1,11 @@
+version: "2"
+services:
+  SwissTopoTiles:
+    image: klokantech/tileserver-gl
+    hostname: SwissTopoTiles
+    command: wander_web.mbtiles
+  web:
+    image: nhofer/tile-demo
+    command: python3 -m http.server
+    ports: 
+      - "8000:8000"
