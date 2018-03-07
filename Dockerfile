@@ -20,6 +20,6 @@ RUN npm run build
 
 EXPOSE 8000
 
-#CMD ['python3', '-m' , 'http.server']
+CMD ["python3", "-m" , "http.server"]
 
 
