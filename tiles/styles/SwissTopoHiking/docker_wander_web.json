@@ -8,10 +8,6 @@
     "openmaptiles:version": "3.x"
   },
   "sources": {
-    "m81y9dgny": {
-      "type": "vector",
-      "url": "http://localhost:8080/data/Test.json"
-    },
     "Pixelkarte": {
       "type": "raster",
       "tiles": [

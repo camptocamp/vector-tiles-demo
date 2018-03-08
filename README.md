@@ -21,7 +21,7 @@ in a terminal
 * Requires [ogr2ogr](http://www.sarasafavi.com/installing-gdalogr-on-ubuntu.html) to be installed
 * Clone the repository :
 `git clone https://github.com/camptocamp/vector-tiles-demo.git` in a terminal
-* move the data : route.shp, route.dbf, route.shx, route.prj into the vector-tiles-demo directory
+* move the data : geometryroute.shp, geometryroute.dbf, geometryroute.shx, geometryroute.prj into the vector-tiles-demo directory
 * launch the script which will create the vector tiles from the data, and then launch the app in a docker container:
 ```
 $ cd vector-tiles-demo
