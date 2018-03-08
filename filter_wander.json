@@ -1,0 +1,8 @@
+{"newRoute": [
+        "all",
+        [
+          "==",
+          "LAND",
+          "wander"
+        ]
+      ]}
