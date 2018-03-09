@@ -3,7 +3,7 @@
 * Your machine runs Linux !
 * [git](https://gist.github.com/derhuerst/1b15ff4652a867391f03#file-linux-md) is installed
 * [Docker](https://docs.docker.com/install/ is installed)
-* 8000 is a free port on your machine
+* 8000, 8080 are free ports on your machine
 
 ##Quick setup
 ###You do not have acces to Schweizmobil data

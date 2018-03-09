@@ -1,7 +1,7 @@
 import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = "pk.eyJ1IjoibmhvZmVyIiwiYSI6ImNqZHk5ZjRyNDB0aWQycW82MW1vOWViY3EifQ.NgdjIOFkAmVECB1lTsySSg";
 
-var SwissTopoStyle = 'styles/SwissTopoHiking/docker_wander_web.json'
+var SwissTopoStyle = 'styles/SwissTopoHiking/wander_web.json'
 var map = new mapboxgl.Map({
     style: SwissTopoStyle,
     center: [-74.0066, 40.7135],
