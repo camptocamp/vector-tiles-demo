@@ -4,8 +4,8 @@
   "description": "First package.json",
   "main": "ScriptChangeLayer.js",
   "scripts": {
-    "build" : "webpack  --mode production",
-    "dev" : "webpack --mode development",
+    "build": "webpack  --mode production",
+    "dev": "webpack --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/camptocamp/vector-tiles-demo#readme",
   "dependencies": {
-    "mapbox-gl": "^0.44.1"
+    "mapbox-gl": "^0.44.1",
+    "ol": "^4.6.4",
+    "proj4": "^2.4.4"
   },
   "devDependencies": {
     "webpack": "^4.0.0",
