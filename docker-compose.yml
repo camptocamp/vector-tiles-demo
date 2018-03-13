@@ -9,6 +9,7 @@ services:
     command: wander_velo_spec.mbtiles
   web:
     image: nhofer/tile-demo
+    build: .
     command: python3 -m http.server
     ports: 
       - "8000:8000"
