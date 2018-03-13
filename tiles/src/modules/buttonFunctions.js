@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import {map, SwissTopoStyle} from './mapinit';
 
 function findMyHouse() {
     map.setCenter([6.086763,46.173795]);
@@ -108,4 +109,4 @@ map.addSource("bauzonen", {
 }
 
 export {findMyHouse, addThirdPartyLayer, setMaputnikStyle, setMapboxStyle, 
-    addWMS, addWMTS, setSchweizMobile, switchLayer};
+    addWMS, addWMTS, setSchweizMobile, switchLayer, map};
