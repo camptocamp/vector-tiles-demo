@@ -3,6 +3,7 @@
 * Your machine runs Linux !
 * [git](https://gist.github.com/derhuerst/1b15ff4652a867391f03#file-linux-md) is installed
 * [Docker](https://docs.docker.com/install/ is installed)
+* docker-compose is installed (using docker_script.sh can be a workaround if you do not have docker-compose
 * 8000, 8080 are free ports on your machine
 
 ## Quick setup
@@ -12,7 +13,7 @@
 * launch the script which will run the app in a docker container
 ```
 $ cd vector-tiles-demo
-$ ./docker_script.sh
+$ docker-compose up
 ```
 in a terminal
 ### You have access to Schweizmobil data
@@ -30,3 +31,4 @@ $ ./full_script.sh
 
 ## See the awesome result :
 * open a browser at http://localhost:8000
+
