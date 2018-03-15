@@ -2,7 +2,8 @@ import proj4 from 'proj4'
 import * as L from 'leaflet'
 import proj4leaflet from 'proj4leaflet'
 import mapboxgl from 'mapbox-gl'
-import 'mapbox-gl-leaflet'
+import './modules/mapbox-gl-leaflet-fork'
+const SwissTopoStyle = 'styles/SwissTopoHiking/wander_velo_spec_one_layer_swiss.json';
 
 //////////////////////////////////////////////////////////////////////
 //////////////// Roman part leaflet-tilelayer-swiss //////////////////
@@ -77,7 +78,51 @@ var map = L.map("map", {
 
 var token = 'pk.eyJ1IjoibmhvZmVyIiwiYSI6ImNqZHk5ZjRyNDB0aWQycW82MW1vOWViY3EifQ.NgdjIOFkAmVECB1lTsySSg';
 map.setView(L.TileLayer.Swiss.unproject(L.point([2600000, 1200000])), 16);
+
+function swissZoomToGoogleZoom(swissZoom) {
+    //650 resolution is a 1: 2456694 att approx 96 dpi
+    //google zoom lvl 0  gives a 1  : 591657550.500000 and scales by 2
+    const resolution = resolutions[swissZoom];
+    const approx_scale_dpi96 = 2456694 * resolution / 650;
+    return 1 + Math.log2(approx_scale_dpi96);
+
+}
+
 var gl = L.mapboxGL({
     accessToken: token,
-    style: 'mapbox://styles/mapbox/bright-v8'
+    style: SwissTopoStyle
 }).addTo(map);
+
+
+const WestmostMerc = -20026376.38;
+const SouthmostMerc = -20048966.10;
+const EastmostMerc = -WestmostMerc;
+const NorthmostMerc = -SouthmostMerc;
+const Westmost = 2420000;
+const Southmost  = 130000;
+const Eastmost = 2900000;
+const Northmost = 1350000;
+const scaleFactor = min((EastmostMerc - WestmostMerc)/(Eastmost - Westmost),
+                  (NorthmostMerc-SouthmostMerc)/(Northmost-Southmost));
+function LV95_to_EPSG3857(point){
+    return L.point([(point.x - Westmost)*scaleFactor+WestmostMerc, (point.y - Southmost)*scaleFactor + SouthmostMerc]) 
+}
+
+
+const earthRadius = 6378137;
+function EPSG3857_to_LatLng(topleft, bottomRight){
+    L.latLngBounds(L.Projection.SphericalMercator.unproject(topLeft.divideBy(earthRadius),
+L.Projection.SphericalMercator.unproject(bottomRight.divideBy(earthRadius)));
+}
+
+function ArrayWSENFromBounds(bounds){
+    return [[bounds.getWest(), bounds.getSouth()],
+    [bounds.getEast(), bounds.getNorth()]];
+
+}
+//Nettoyer ça
+gl._glMap.fitBounds(ArrayWSENFromBounds(EPSG3857_to_LatLng(LV95_to_EPSG3857(unproject(L.latLng(map.getNorth(), map.getWest()))))),
+EPSG3857_to_LatLng(LV95_to_EPSG3857(unproject(L.latLng(map.getSouth(), map.getEast())))));
+console.log(gl);
+console.log(gl);
+var x = 'trucmuche';
