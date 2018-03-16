@@ -10,7 +10,7 @@
   "sources": {
     "hiking_schweiz_mobil": {
       "type": "vector",
-      "url": "http://localhost:8080/data/test_route_swiss_LV95_1.json"
+      "url": "http://localhost:8080/data/geometryroute_LV95_WM.json"
     }
   },
   "glyphs": "https://demo.tileserver.org/fonts/{fontstack}/{range}.pbf",
@@ -30,7 +30,8 @@
       "type": "line",
       "source": "hiking_schweiz_mobil",
       "source-layer": "route_layer",
-      "minzoom": 5,
+      "minzoom": 0,
+      "maxzoom": 24,
       "filter": [
         "all",
         [
@@ -49,7 +50,7 @@
         "line-width": {
           "stops": [
             [
-              5,
+              0,
               6
             ],
             [
@@ -104,7 +105,7 @@
       "type": "line",
       "source": "hiking_schweiz_mobil",
       "source-layer": "route_layer",
-      "minzoom": 5,
+      "minzoom": 0,
       "filter": [
         "all",
         [
@@ -123,7 +124,7 @@
         "line-width": {
           "stops": [
             [
-              6,
+              0,
               1
             ],
             [
@@ -185,7 +186,7 @@
       "type": "line",
       "source": "hiking_schweiz_mobil",
       "source-layer": "route_layer",
-      "minzoom": 5,
+      "minzoom": 0,
       "filter": [
         "all",
         [
@@ -209,7 +210,7 @@
         "line-width": {
           "stops": [
             [
-              5,
+              0,
               6
             ],
             [
@@ -264,7 +265,7 @@
       "type": "line",
       "source": "hiking_schweiz_mobil",
       "source-layer": "route_layer",
-      "minzoom": 5,
+      "minzoom": 0,
       "filter": [
         "all",
         [
@@ -288,7 +289,7 @@
         "line-width": {
           "stops": [
             [
-              6,
+              0,
               1
             ],
             [
@@ -312,7 +313,7 @@
         "line-opacity": {
           "stops": [
             [
-              6,
+              0,
               1
             ],
             [
@@ -350,7 +351,7 @@
       "type": "line",
       "source": "hiking_schweiz_mobil",
       "source-layer": "route_layer",
-      "minzoom": 5,
+      "minzoom": 0,
       "filter": [
         "all",
         [
@@ -374,7 +375,7 @@
         "line-width": {
           "stops": [
             [
-              5,
+              0,
               6
             ],
             [
@@ -402,7 +403,7 @@
         "line-opacity": {
           "stops": [
             [
-              6,
+              0,
               1
             ],
             [
@@ -423,85 +424,6 @@
           2,
           2
         ]
-      }
-    },
-    {
-      "id": "wanderweg-dotted",
-      "type": "line",
-      "source": "hiking_schweiz_mobil",
-      "source-layer": "route_layer",
-      "minzoom": 5,
-      "filter": [
-        "all",
-        [
-          "==",
-          "LAND",
-          "wander"
-        ],
-        [
-          "==",
-          "SURFACE",
-          3
-        ]
-      ],
-      "layout": {
-        "line-cap": "round",
-        "line-join": "round",
-        "visibility": "visible"
-      },
-      "paint": {
-        "line-color": "rgba(44, 195, 30, 1)",
-        "line-width": {
-          "stops": [
-            [
-              5,
-              6
-            ],
-            [
-              6,
-              8
-            ],
-            [
-              7,
-              8
-            ],
-            [
-              11,
-              7
-            ],
-            [
-              12,
-              9
-            ],
-            [
-              13,
-              7
-            ]
-          ]
-        },
-        "line-opacity": {
-          "stops": [
-            [
-              6,
-              1
-            ],
-            [
-              8,
-              0.8
-            ],
-            [
-              10,
-              0.6
-            ],
-            [
-              12,
-              0.6
-            ]
-          ]
-        },
-        "line-offset": 0,
-        "line-blur": 0,
-        "line-gap-width": 0
       }
     }
   ],

@@ -3,7 +3,7 @@ import * as L from 'leaflet'
 import proj4leaflet from 'proj4leaflet'
 import mapboxgl from 'mapbox-gl'
 import './modules/mapbox-gl-leaflet-fork'
-const SwissTopoStyle = 'styles/SwissTopoHiking/wander_velo_spec_one_layer_swiss.json';
+const SwissTopoStyle = 'styles/SwissTopoHiking/wander_velo_spec_one_layer_swiss_adaptedZoom.json';
 
 //////////////////////////////////////////////////////////////////////
 //////////////// Roman part leaflet-tilelayer-swiss //////////////////
@@ -77,7 +77,7 @@ var map = L.map("map", {
 });
 
 var token = 'pk.eyJ1IjoibmhvZmVyIiwiYSI6ImNqZHk5ZjRyNDB0aWQycW82MW1vOWViY3EifQ.NgdjIOFkAmVECB1lTsySSg';
-map.setView(L.TileLayer.Swiss.unproject(L.point([2600000, 1200000])), 16);
+map.setView(L.TileLayer.Swiss.unproject(L.point([2600000.0, 1200000.0])), 17);
 
 function swissZoomToGoogleZoom(swissZoom) {
     //650 resolution is a 1: 2456694 att approx 96 dpi
@@ -102,7 +102,7 @@ const Westmost = 2420000;
 const Southmost  = 130000;
 const Eastmost = 2900000;
 const Northmost = 1350000;
-const scaleFactor = min((EastmostMerc - WestmostMerc)/(Eastmost - Westmost),
+const scaleFactor = Math.min((EastmostMerc - WestmostMerc)/(Eastmost - Westmost),
                   (NorthmostMerc-SouthmostMerc)/(Northmost-Southmost));
 function LV95_to_EPSG3857(point){
     return L.point([(point.x - Westmost)*scaleFactor+WestmostMerc, (point.y - Southmost)*scaleFactor + SouthmostMerc]) 
@@ -110,19 +110,40 @@ function LV95_to_EPSG3857(point){
 
 
 const earthRadius = 6378137;
-function EPSG3857_to_LatLng(topleft, bottomRight){
-    L.latLngBounds(L.Projection.SphericalMercator.unproject(topLeft.divideBy(earthRadius),
-L.Projection.SphericalMercator.unproject(bottomRight.divideBy(earthRadius)));
+function EPSG3857_to_Tricked_LatLng(topleft, bottomRight){
+    return L.latLngBounds(L.CRS.EPSG3857.unproject(topLeft),
+        L.CRS.EPSG3857.unproject(bottomRight));
 }
 
 function ArrayWSENFromBounds(bounds){
-    return [[bounds.getWest(), bounds.getSouth()],
-    [bounds.getEast(), bounds.getNorth()]];
-
+    return [[Math.max(-180, bounds.getWest()), Math.max(-85.6,bounds.getSouth())],
+    [Math.min(180, bounds.getEast()), Math.min(180, bounds.getNorth())]];
 }
+
+function getSwissCoordinates(map){
+    //maybe replace this by L.TileLayer.Swiss.unproject()
+    const northwest = map.getBounds().getNorthWest();
+    const southeast = map.getBounds().getSouthEast();
+    console.log("northwest is : " +northwest);
+    console.log("southeast is : " + southeast);
+    const topLeft = project(map.getBounds().getNorthWest());
+    const bottomRight = project(map.getBounds().getSouthEast()); 
+    return [topLeft, bottomRight]
+}
+
+function getEPSG3857_Coordinates(points_LV95){
+    return [LV95_to_EPSG3857(points_LV95[0]), LV95_to_EPSG3857(points_LV95[1])];
+}
+
+function getTrickedLatLngBounds(points_EPSG3857){
+    return EPSG3857_to_Tricked_LatLng(points_EPSG3857[0], points_EPSG3857[1]);
+}
+const lv95 = getSwissCoordinates(map);
+const epsg3857 = getEPSG3857_Coordinates(lv95);
+const newLatLngBounds = L.latLngBounds(L.CRS.EPSG3857.unproject(epsg3857[0]), L.CRS.EPSG3857.unproject(epsg3857[1]))
+const wsen = ArrayWSENFromBounds(newLatLngBounds);
 //Nettoyer ça
-gl._glMap.fitBounds(ArrayWSENFromBounds(EPSG3857_to_LatLng(LV95_to_EPSG3857(unproject(L.latLng(map.getNorth(), map.getWest()))))),
-EPSG3857_to_LatLng(LV95_to_EPSG3857(unproject(L.latLng(map.getSouth(), map.getEast())))));
+gl._glMap.fitBounds(wsen);
 console.log(gl);
 console.log(gl);
 var x = 'trucmuche';
