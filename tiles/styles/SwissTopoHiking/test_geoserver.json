@@ -1,0 +1,28 @@
+{
+  "version": 8,
+  "name": "geoserver_test",
+  "sources" :{
+    "countries" : {
+      "type" : "vector",
+      "scheme" : "tms",
+      "tiles" : [
+      "http://localhost:8080/geoserver/gwc/service/tms/1.0.0/dasfadfas:opengeo:countries@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf"
+      ],
+      "minzoom" : 0,
+      "maxzoom" : 22
+    }
+  },
+  "layers": [
+    {
+      "id": "countries",
+      "type" : "fill",
+      "source" : "countries",
+      "source-layer" : "opengeo:countries",
+      "paint": {
+        "fill-color" : "rgba(255, 0, 0, 0)",
+        "fill-outline-color" : "rgba(0, 0, 0, 0)"
+      }
+    }
+  ],
+  "id": "0xwqreqafd"
+}
