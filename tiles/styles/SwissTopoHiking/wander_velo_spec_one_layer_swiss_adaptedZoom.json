@@ -10,7 +10,7 @@
   "sources": {
     "hiking_schweiz_mobil": {
       "type": "vector",
-      "url": "http://localhost:8080/data/geometryroute_LV95_WM.json"
+      "url": "http://localhost:8080/data/routegeometry_LV95_WM.json"
     }
   },
   "glyphs": "https://demo.tileserver.org/fonts/{fontstack}/{range}.pbf",

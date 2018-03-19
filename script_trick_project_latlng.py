@@ -6,12 +6,7 @@ for line in inFile:
   #we split by space and then by comma
   words = line.split(" ") 
   for index in range(len(words)):
-    #scale dirty reprojectors
-    #Eastmost : 485869.5728
-    #X: 7.43863 - 6.15591 correspond à 200000 - 118000
-    #Y: 3.74492 : 0.99000
-    #X: 1.28272 : 0.82
-    #Or
+    #dirty parser to change coordinate systems
     WestmostMerc = -20026376.38
     SouthmostMerc = -20048966.10
     EastmostMerc = -WestmostMerc
