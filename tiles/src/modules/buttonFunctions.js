@@ -56,7 +56,7 @@ function setSchweizMobile() {
   map.setStyle(SwissTopoStyle);
 }
 
-const geoServerStyle = 'styles/SwissTopoHiking/test_geoserver_maputnik.json';
+const geoServerStyle = 'styles/SwissTopoHiking/geoserver_style_hiking.json';
 function setGeoServerStyle() {
   map.setStyle(geoServerStyle);
 }
