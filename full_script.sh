@@ -1,13 +1,10 @@
 #!/bin/bash
-mkdir data
+
 FILE_NAME_USED=routegeometry
 LV95=_LV95
 WM=_WM
 EXTENSION=.json
 OGRED=OGRED
-echo "moving the files"
-mv "$FILE_NAME_USED.shp" "$FILE_NAME_USED.shx" "$FILE_NAME_USED.prj" "$FILE_NAME_USED.dbf" ./data
-wait
 cd data
 #convert into GEOJSON LV95 from LV03 shapefile
 FirstFile=$FILE_NAME_USED$LV95
@@ -17,8 +14,8 @@ wait
 #Run python script to tweak coordinates into Web Mercator
 echo "tweaking the file into fake WebMercator"
 SecondFile=$FirstFile$WM
-python3 ../script_trick_project_latlng.py $FirstFile$EXTENSION $SecondFile$EXTENSION
-#present as FromWebMercator
+python3 ../script_trick_project_latlng_v2.py $FirstFile$EXTENSION $SecondFile$EXTENSION
+#change header of file to make it look like web mercator
 wait
 ThirdFile=$SecondFile$OGRED
 ogr2ogr -f "GeoJSON" $ThirdFile$EXTENSION -a_srs EPSG:3857 $SecondFile$EXTENSION
