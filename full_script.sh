@@ -14,7 +14,7 @@ wait
 #Run python script to tweak coordinates into Web Mercator
 echo "tweaking the file into fake WebMercator"
 SecondFile=$FirstFile$WM
-python3 ../script_trick_project_latlng_v2.py $FirstFile$EXTENSION $SecondFile$EXTENSION
+python3 ../lv95_web_swiss/lv95_web_swiss.py $FirstFile$EXTENSION $SecondFile$EXTENSION
 #change header of file to make it look like web mercator
 wait
 ThirdFile=$SecondFile$OGRED
