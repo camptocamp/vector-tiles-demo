@@ -6,7 +6,7 @@ services:
       - "8080:80"
     volumes:
       - ./data:/data
-    command: wander_velo_spec.mbtiles
+    command: merged.mbtiles
   web:
     image: nhofer/tile-demo
     build: .
