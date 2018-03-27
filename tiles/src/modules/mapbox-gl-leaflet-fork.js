@@ -19,7 +19,11 @@
 
         initialize: function (options) {
             L.setOptions(this, options);
-
+            if (options.accessToken) {
+                mapboxgl.accessToken = options.accessToken;
+            } else {
+                throw new Error('You should provide a Mapbox GL access token as a token option.');
+}
             this._toWebMercator = options.toWebMercator;
 
             /**
