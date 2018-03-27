@@ -1,17 +1,4 @@
-function swissZoomToGoogleZoom(swissZoom) {
-    //650 resolution is a 1: 2456694 att approx 96 dpi
-    //google zoom lvl 0  gives a 1  : 591657550.500000 and scales by 2
-    const resolution = resolutions[swissZoom];
-    const approx_scale_dpi96 = 2456694 * resolution / 650;
-    return 1 + Math.log2(approx_scale_dpi96);
-
-}
-
-function LngLatLikeFromLeafLetBounds(bounds){
-    return [[bounds.getWest(), bounds.getSouth()],
-    [bounds.getEast(), bounds.getNorth()]];
-
-}
+/* eslint-disable */
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
@@ -22,22 +9,18 @@ function LngLatLikeFromLeafLetBounds(bounds){
         module.exports = factory(require('leaflet'), require('mapbox-gl'));
     } else {
         // Browser globals (root is window)
-        root.returnExports = factory(window.L, window.mapboxgl);
+        root.L.MapboxGL = factory(window.L, window.mapboxgl);
     }
 }(this, function (L, mapboxgl) {
-    L.MapboxGL = L.Layer.extend({
+    var MapboxGL = L.Layer.extend({
         options: {
-        updateInterval: 32
+            updateInterval: 32
         },
 
         initialize: function (options) {
             L.setOptions(this, options);
 
-            if (options.accessToken) {
-                mapboxgl.accessToken = options.accessToken;
-            } else {
-                throw new Error('You should provide a Mapbox GL access token as a token option.');
-            }
+            this._toWebMercator = options.toWebMercator;
 
             /**
              * Create a version of `fn` that only fires once every `time` millseconds.
@@ -121,18 +104,18 @@ function LngLatLikeFromLeafLetBounds(bounds){
             var container = this._glContainer = L.DomUtil.create('div', 'leaflet-gl-layer');
 
             var size = this._map.getSize();
-            container.style.width  = size.x + 'px';
+            container.style.width = size.x + 'px';
             container.style.height = size.y + 'px';
         },
 
         _initGL: function () {
-            var center = this._map.getCenter();
+            const { center, zoom } = this._getGLCenterZoom();
 
             var options = L.extend({}, this.options, {
                 container: this._glContainer,
                 interactive: false,
                 center: [center.lng, center.lat],
-                zoom: this._map.getZoom() - 1,
+                zoom: zoom,
                 attributionControl: false
             });
 
@@ -151,17 +134,54 @@ function LngLatLikeFromLeafLetBounds(bounds){
             // treat child <canvas> element like L.ImageOverlay
             L.DomUtil.addClass(this._glMap._actualCanvas, 'leaflet-image-layer');
             L.DomUtil.addClass(this._glMap._actualCanvas, 'leaflet-zoom-animated');
+        },
 
-            this._glMap.fitBounds(LngLatLikeFromLeafLetBounds(this._map.getBounds()));
+        _pixelToProjected: function(point) {
+            var latLng = this._map.unproject(point);
+            return this._map.options.crs.project(latLng);
+        },
+
+        _getProjectedBounds: function() {
+            var pixelBounds = this._map.getPixelBounds();
+            var minProjected = this._pixelToProjected(pixelBounds.min);
+            var maxProjected = this._pixelToProjected(pixelBounds.max);
+            return [minProjected, maxProjected];
+        },
+
+        _getGLBounds: function () {
+            var projectedBounds = this._getProjectedBounds();
+            return projectedBounds.map(this._toWebMercator);
+        },
+
+        _getGLCenterZoom() {
+            var WGS_84_RADIUS_METERS = 6378137;
+            var WGS_84_CIRCUMFERENCE_METERS = WGS_84_RADIUS_METERS * 2 * Math.PI;
+            var TILE_SIZE_PIXELS = 256;
+
+            var bounds = this._getGLBounds();
+
+            // Center
+            var centerWebMercator = bounds[0].add(bounds[1]).divideBy(2);
+            var centerLatLng = L.CRS.EPSG3857.unproject(centerWebMercator);
+
+            // Zoom
+            var extentX = Math.abs(bounds[0].x - bounds[1].x);
+            var pixelsSizeX = this._map.getSize().x;
+            var scale = pixelsSizeX /extentX * WGS_84_CIRCUMFERENCE_METERS / TILE_SIZE_PIXELS;
+            var zoom = Math.log(scale) / Math.LN2;
+
+            return {
+                center: centerLatLng,
+                zoom: zoom
+            }
         },
 
         _update: function (e) {
-            /*
             // update the offset so we can correct for it later when we zoom
             this._offset = this._map.containerPointToLayerPoint([0, 0]);
 
             if (this._zooming) {
-            return;
+                return;
             }
 
             var size = this._map.getSize(),
@@ -171,93 +191,89 @@ function LngLatLikeFromLeafLetBounds(bounds){
 
             L.DomUtil.setPosition(container, topLeft);
 
-            var center = this._map.getCenter();
+            const { center, zoom } = this._getGLCenterZoom();
 
             // gl.setView([center.lat, center.lng], this._map.getZoom() - 1, 0);
             // calling setView directly causes sync issues because it uses requestAnimFrame
 
             var tr = gl.transform;
             tr.center = mapboxgl.LngLat.convert([center.lng, center.lat]);
-            tr.zoom = this._map.getZoom() - 1;
+            tr.zoom = zoom - 1;
 
             if (gl.transform.width !== size.x || gl.transform.height !== size.y) {
-                container.style.width  = size.x + 'px';
+                container.style.width = size.x + 'px';
                 container.style.height = size.y + 'px';
-                if (gl._resize !== null && gl._resize !== undefined){
+                if (gl._resize !== null && gl._resize !== undefined) {
                     gl._resize();
                 } else {
                     gl.resize();
                 }
             } else {
                 // older versions of mapbox-gl surfaced update publicly
-                if (gl._update !== null && gl._update !== undefined){
+                if (gl._update !== null && gl._update !== undefined) {
                     gl._update();
                 } else {
                     gl.update();
                 }
-            }*/
+            }
         },
 
         // update the map constantly during a pinch zoom
         _pinchZoom: function (e) {
-            this._glMap.fitBounds(LngLatLikeFromLeafLetBounds(this._map.getBounds()));
-            //this._glMap.fitBounds(LngLatLikeFromLeafLetBounds(this._map.getBounds()));
-        /*this._glMap.jumpTo({
-            zoom: this._map.getZoom() - 1,
-            center: this._map.getCenter()
-        });*/
+            this._glMap.jumpTo(this._getGLCenterZoom());
         },
 
         // borrowed from L.ImageOverlay https://github.com/Leaflet/Leaflet/blob/master/src/layer/ImageOverlay.js#L139-L144
         _animateZoom: function (e) {
-            //this._glMap.fitBounds(LngLatLikeFromLeafLetBounds(this._map.getBounds()));
-        /*var scale = this._map.getZoomScale(e.zoom),
-            offset = this._map._latLngToNewLayerPoint(this._map.getBounds().getNorthWest(), e.zoom, e.center);
+            var northWest = this._map.unproject(this._map.getPixelBounds().getTopLeft());
 
-        L.DomUtil.setTransform(this._glMap._actualCanvas, offset.subtract(this._offset), scale);*/
-            this._glMap.fitBounds(LngLatLikeFromLeafLetBounds(this._map.getBounds()));
+            var scale = this._map.getZoomScale(e.zoom),
+                offset = this._map._latLngToNewLayerPoint(northWest, e.zoom, e.center);
+
+            L.DomUtil.setTransform(this._glMap._actualCanvas, offset.subtract(this._offset), scale);
         },
 
         _zoomStart: function (e) {
-        this._zooming = true;
+            this._zooming = true;
         },
 
         _zoomEnd: function () {
-       /* var scale = this._map.getZoomScale(this._map.getZoom()),*/
-            offset = this._map._latLngToNewLayerPoint(this._map.getBounds().getNorthWest(), this._map.getZoom(), this._map.getCenter())
+            var northWest = this._map.unproject(this._map.getPixelBounds().getTopLeft());
 
-        //L.DomUtil.setTransform(this._glMap._actualCanvas, offset.subtract(this._offset), scale);
-            this._glMap.fitBounds(LngLatLikeFromLeafLetBounds(this._map.getBounds()));
+            var scale = this._map.getZoomScale(this._map.getZoom()),
+                offset = this._map._latLngToNewLayerPoint(northWest, this._map.getZoom(), this._map.getCenter());
+
+            L.DomUtil.setTransform(this._glMap._actualCanvas, offset.subtract(this._offset), scale);
+
             this._zooming = false;
+
+            // TODO: Too early for update? (sometimes flickering)
+            this._update();
         },
 
         _transitionEnd: function (e) {
-        L.Util.requestAnimFrame(function () {
-            var zoom = this._map.getZoom(),
-            center = this._map.getCenter(),
-            offset = this._map.latLngToContainerPoint(this._map.getBounds().getNorthWest());
+            L.Util.requestAnimFrame(() => {
+                var northWest = this._map.unproject(this._map.getPixelBounds().getTopLeft());
+                offset = this._map.latLngToContainerPoint(northWest);
 
-            // reset the scale and offset
-            //L.DomUtil.setTransform(this._glMap._actualCanvas, offset, 1);
+                // reset the scale and offset
+                L.DomUtil.setTransform(this._glMap._actualCanvas, offset, 1);
 
-            // enable panning once the gl map is ready again
-           /* this._glMap.once('moveend', L.Util.bind(function () {
-                this._zoomEnd();
-            }, this));*/
+                // enable panning once the gl map is ready again
+                this._glMap.once('moveend', L.Util.bind(function () {
+                    this._zoomEnd();
+                }, this));
 
-            // update the map position
-            /*this._glMap.jumpTo({
-                center: center,
-                zoom: zoom - 1
-            });*/
-            this._glMap.fitBounds(LngLatLikeFromLeafLetBounds(this._map.getBounds()));
-        }, this);
+                // update the map position
+                this._update();
+            });
         }
-        
     });
 
     L.mapboxGL = function (options) {
-        return new L.MapboxGL(options);
+        return new MapboxGL(options);
     };
 
+    return MapboxGL;
 }));
+
