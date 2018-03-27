@@ -56,6 +56,11 @@ function setSchweizMobile() {
   map.setStyle(SwissTopoStyle);
 }
 
+const geoServerStyle = 'styles/SwissTopoHiking/geoserver_style_hiking.json';
+function setGeoServerStyle() {
+  map.setStyle(geoServerStyle);
+}
+
 function switchLayer(layer) {
   const layerId = layer.target.id;
   switch (layerId) {
@@ -71,6 +76,9 @@ function switchLayer(layer) {
       break;
     case 'schweiz-mobile-like':
       setSchweizMobile();
+      break;
+    case 'geo-server-demo':
+      setGeoServerStyle();
       break;
     default:
       break;
