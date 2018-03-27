@@ -9,7 +9,6 @@ import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibmhvZmVyIiwiYSI6ImNqZHk5ZjRyNDB0aWQycW82MW1vOWViY3EifQ.NgdjIOFkAmVECB1lTsySSg';
 
-
 const SwissTopoStyle = 'styles/SwissTopoHiking/swiss_topo_mixed.json';
 const map = new mapboxgl.Map({
   style: SwissTopoStyle,

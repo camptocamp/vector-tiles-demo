@@ -1,16 +1,21 @@
-import * as buttonFunctions from './modules/buttonFunctions';
+import { Map } from 'leaflet';
+import Swiss, { crs, latLngBounds, project, unproject } from 'leaflet-tilelayer-swiss';
 
-// bind functions to menu
+import MapboxGL from './modules/mapbox-gl-leaflet-fork';
+import toWebSwiss from './modules/lv95-web-swiss';
 
-const layerList = document.getElementById('menu');
-const inputs = layerList.getElementsByTagName('input');
+const switzerlandMobilityStyle = 'styles/SwissTopoHiking/wander_velo_spec_one_layer_swiss_adaptedZoom.json';
 
-for (let i = 0; i < inputs.length; ++i) {
-  inputs[i].onclick = buttonFunctions.switchLayer;
-}
-// bind buttons to functions
-document.getElementById('addWMS').addEventListener('click', buttonFunctions.addWMS);
-document.getElementById('addWMTS').addEventListener('click', buttonFunctions.addWMTS);
-document.getElementById('findMyHse').addEventListener('click', buttonFunctions.findMyHouse);
-document.getElementById('addThirdPartyLr').addEventListener('click', buttonFunctions.addThirdPartyLayer);
+const map = new Map('map', {
+  crs,
+  layers: [new Swiss()],
+  maxBounds: latLngBounds,
+});
 
+map.setView(unproject(L.point([2600000.0, 1200000.0])), 17);
+
+// Adding the mapbox vector tiles layer
+new MapboxGL({
+  style: switzerlandMobilityStyle,
+  toWebMercator: toWebSwiss,
+}).addTo(map);

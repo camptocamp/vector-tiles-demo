@@ -15,7 +15,7 @@ RUN npm install -g n
 RUN n 6.11.3
 RUN npm install
 RUN node -v
-RUN npm run build
+RUN npm run dev
 
 
 EXPOSE 8000
