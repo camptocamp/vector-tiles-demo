@@ -24,6 +24,7 @@ in a terminal
 `git clone https://github.com/camptocamp/vector-tiles-demo.git` in a terminal
 * move the data : geometryroute_2018-02-16.tgz into the vector-tiles-demo/data directory (create it if it does not exist)
 * launch the script which will create the vector tiles from the data, and then launch the app in a docker container:
+* launch a cors enabled server on port 7800 at vector-tile-demo/tiles/sprites
 ```
 $ cd vector-tiles-demo
 $ docker build -t nhofer/tile-demo .

@@ -13,6 +13,7 @@
       "url": "http://localhost:8080/data/hiking_poi_web_swiss.json"
     }
   },
+  "sprite": "http://localhost:7800/transports",
   "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
   "layers": [
     {
@@ -428,6 +429,169 @@
       }
     },
     {
+      "id": "buses-far",
+      "type": "circle",
+      "source": "hiking_schweiz_mobil",
+      "source-layer": "poi_sbb",
+      "minzoom": 0,
+      "maxzoom": 10,
+      "filter": [
+        "all",
+        [
+          "==",
+          "verkehrsmittel",
+          "Bus"
+        ]
+      ],
+      "layout": {},
+      "paint": {
+        "circle-stroke-color": "rgba(255, 255, 255, 1)",
+        "circle-stroke-width": {
+          "stops": [
+            [
+              0,
+              0
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              6,
+              1
+            ]
+          ]
+        },
+        "circle-radius": {
+          "stops": [
+            [
+              0,
+              1
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              11,
+              5
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "trams-far",
+      "type": "circle",
+      "source": "hiking_schweiz_mobil",
+      "source-layer": "poi_sbb",
+      "minzoom": 0,
+      "maxzoom": 10,
+      "filter": [
+        "any",
+        [
+          "==",
+          "verkehrsmittel",
+          "Tram"
+        ],
+        [
+          "==",
+          "verkehrsmittel",
+          "Metro"
+        ]
+      ],
+      "layout": {},
+      "paint": {
+        "circle-stroke-color": "rgba(255, 255, 255, 1)",
+        "circle-stroke-width": {
+          "stops": [
+            [
+              0,
+              0
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              6,
+              1
+            ]
+          ]
+        },
+        "circle-radius": {
+          "stops": [
+            [
+              0,
+              1.5
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              11,
+              5
+            ]
+          ]
+        },
+        "circle-color": "rgba(27, 3, 255, 1)"
+      }
+    },
+    {
+      "id": "trains-far",
+      "type": "circle",
+      "source": "hiking_schweiz_mobil",
+      "source-layer": "poi_sbb",
+      "minzoom": 0,
+      "maxzoom": 10,
+      "filter": [
+        "all",
+        [
+          "==",
+          "verkehrsmittel",
+          "Zug"
+        ]
+      ],
+      "layout": {},
+      "paint": {
+        "circle-stroke-color": "rgba(0, 0, 0, 1)",
+        "circle-stroke-width": {
+          "stops": [
+            [
+              0,
+              1
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              6,
+              1
+            ]
+          ]
+        },
+        "circle-radius": {
+          "stops": [
+            [
+              0,
+              1
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              5,
+              7
+            ]
+          ]
+        },
+        "circle-color": "rgba(245, 3, 3, 1)"
+      }
+    },
+    {
       "id": "buses",
       "type": "symbol",
       "source": "hiking_schweiz_mobil",
@@ -444,7 +608,19 @@
       ],
       "layout": {
         "text-field": "{name}",
-        "text-size": 14
+        "text-size": 14,
+        "text-pitch-alignment": "auto",
+        "text-rotation-alignment": "auto",
+        "icon-rotation-alignment": "auto",
+        "icon-size": 0.08,
+        "text-offset": [
+          0,
+          -2
+        ],
+        "text-anchor": "bottom",
+        "icon-image": "bus_left",
+        "icon-rotate": 180,
+        "text-optional": true
       },
       "paint": {
         "text-color": "rgba(0, 0, 0, 1)",
@@ -478,7 +654,32 @@
         "text-font": [
           "Open Sans Regular",
           "Arial Unicode MS Regular"
-        ]
+        ],
+        "icon-size": 0.08,
+        "icon-image": "tram_left",
+        "icon-rotate": 180,
+        "text-offset": [
+          0,
+          -2
+        ],
+        "text-optional": true,
+        "text-size": {
+          "stops": [
+            [
+              4,
+              12
+            ],
+            [
+              6,
+              14
+            ],
+            [
+              8,
+              16
+            ]
+          ]
+        },
+        "text-anchor": "bottom"
       },
       "paint": {
         "text-color": "rgba(27, 3, 255, 1)",
@@ -506,7 +707,33 @@
         "text-font": [
           "Open Sans Regular",
           "Arial Unicode MS Regular"
-        ]
+        ],
+        "text-offset": [
+          0,
+          -2
+        ],
+        "icon-size": 0.08,
+        "icon-image": "train_left",
+        "icon-rotate": 180,
+        "text-optional": true,
+        "text-size": {
+          "stops": [
+            [
+              4,
+              13
+            ],
+            [
+              6,
+              15
+            ],
+            [
+              7,
+              16
+            ]
+          ]
+        },
+        "text-line-height": 1.2,
+        "text-anchor": "bottom"
       },
       "paint": {
         "text-color": "rgba(245, 3, 3, 1)",
