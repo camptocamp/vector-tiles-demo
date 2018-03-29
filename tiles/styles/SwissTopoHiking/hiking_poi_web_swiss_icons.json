@@ -13,6 +13,7 @@
       "url": "http://localhost:8080/data/hiking_poi_web_swiss.json"
     }
   },
+  "sprite": "http://localhost:7800/transports",
   "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
   "layers": [
     {
@@ -444,7 +445,30 @@
       ],
       "layout": {
         "text-field": "{name}",
-        "text-size": 14
+        "text-size": 14,
+        "text-pitch-alignment": "auto",
+        "text-rotation-alignment": "auto",
+        "icon-rotation-alignment": "auto",
+        "icon-size": 0.08,
+        "text-offset": [
+          0,
+          -3
+        ],
+        "text-anchor": {
+          "stops": [
+            [
+              6,
+              "center"
+            ],
+            [
+              10,
+              "center"
+            ]
+          ]
+        },
+        "icon-image": "bus_left",
+        "icon-rotate": 180,
+        "text-optional": true
       },
       "paint": {
         "text-color": "rgba(0, 0, 0, 1)",
@@ -478,7 +502,15 @@
         "text-font": [
           "Open Sans Regular",
           "Arial Unicode MS Regular"
-        ]
+        ],
+        "icon-size": 0.08,
+        "icon-image": "tram_left",
+        "icon-rotate": 180,
+        "text-offset": [
+          0,
+          -3
+        ],
+        "text-optional": true
       },
       "paint": {
         "text-color": "rgba(27, 3, 255, 1)",
@@ -506,7 +538,15 @@
         "text-font": [
           "Open Sans Regular",
           "Arial Unicode MS Regular"
-        ]
+        ],
+        "text-offset": [
+          0,
+          -3
+        ],
+        "icon-size": 0.08,
+        "icon-image": "train_left",
+        "icon-rotate": 180,
+        "text-optional": true
       },
       "paint": {
         "text-color": "rgba(245, 3, 3, 1)",
