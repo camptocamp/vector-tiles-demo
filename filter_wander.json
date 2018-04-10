@@ -1,8 +1,0 @@
-{"newRoute": [
-        "all",
-        [
-          "==",
-          "LAND",
-          "wander"
-        ]
-      ]}
