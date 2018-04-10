@@ -1,15 +1,23 @@
 version: "2"
 services:
-  SwissTopoTiles:
+  spriteServer:
+    image: nhofer/sprite-sbb
+    build: tiles/sprites
+    ports:
+      - "7800:7800"
+  SwissMobilTiles:
     image: klokantech/tileserver-gl
     ports:
       - "8080:80"
     volumes:
       - ./data:/data
-    command: merged.mbtiles
+    command: hiking_poi_web_swiss.mbtiles
   web:
-    image: nhofer/tile-demo
+    image: nhofer/tile-demo-dev
     build: .
-    command: python3 -m http.server
+    volumes:
+      - ./tiles:/var/app
+    command: npm run-script docker
+    working_dir: /var/app
     ports: 
       - "8000:8000"
