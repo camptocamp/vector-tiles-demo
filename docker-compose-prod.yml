@@ -5,7 +5,7 @@ services:
     build: tiles/sprites
     ports:
       - "7800:7800"
-  SwitzerlandMobilityTiles:
+  SwissMobilTiles:
     image: klokantech/tileserver-gl
     ports:
       - "8080:80"
@@ -15,9 +15,6 @@ services:
   web:
     image: nhofer/tile-demo-dev
     build: .
-    volumes:
-      - ./tiles:/var/app
     command: npm run-script docker
-    working_dir: /var/app
     ports: 
       - "8000:8000"
