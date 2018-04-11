@@ -32,7 +32,10 @@ def main():
     features = bigJSONObjects["features"]
     for feature in features:
         geometry = feature["geometry"]
-        geometry["coordinates"] = [to_web_swiss(coordinates) for coordinates in geometry["coordinates"]]
+        if geometry["type"] == "Point":
+            geometry["coordinates"] = to_web_swiss(geometry["coordinates"])
+        else:
+            geometry["coordinates"] = [to_web_swiss(coordinates) for coordinates in geometry["coordinates"]]
     json.dump(bigJSONObjects, outFile)
 
 
