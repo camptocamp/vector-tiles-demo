@@ -5,7 +5,7 @@ services:
     build: tiles/sprites
     ports:
       - "7800:7800"
-  SwissMobilTiles:
+  SwitzerlandMobilityTiles:
     image: klokantech/tileserver-gl
     ports:
       - "8080:80"
