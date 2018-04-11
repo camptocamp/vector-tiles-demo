@@ -1,17 +1,14 @@
 version: "2"
 services:
   conversion:
-    image: nhofer/conversion
     build: data_preparation/conversion
     volumes:
       - ./data:/opt/data
   dirty-reprojection:
-    image: nhofer/dirty-reprojection 
     build: data_preparation/dirty-reprojection
     volumes:
       - ./data:/opt/data
   generate-tiles:
-    image: nhofer/generate-tiles
     build: data_preparation/generate-tiles
     volumes:
       - ./data:/opt/data

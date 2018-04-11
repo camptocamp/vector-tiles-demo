@@ -7,8 +7,5 @@ POI_DATASET_PREFIX=data/station-didok
 echo "Run python script to convert from LV95 to 'Web Swiss' (fake web mercator)..."
 python3 lv95_web_swiss/lv95_web_swiss.py ${DATASET_PREFIX}_LV95.geojson ${DATASET_PREFIX}_web_swiss_wrong_crs.geojson
 
-#echo "converting from LATIN-1 to UTF-8"
-#iconv -f LATIN1 -t UTF-8 ${POI_DATASET_PREFIX}_lv95.geojson > ${POI_DATASET_PREFIX}_LV95_converted.geojson
-
 echo "Run python script on POI SBB to convert from LV95 to 'Web Swiss' (fake web mercator)..."
 python3 lv95_web_swiss/lv95_web_swiss.py ${POI_DATASET_PREFIX}_lv95.geojson ${POI_DATASET_PREFIX}_lv95_web_swiss.geojson

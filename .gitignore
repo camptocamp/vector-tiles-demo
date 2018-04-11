@@ -4,6 +4,4 @@ __pycache__
 *.mbtiles
 node_modules/
 data
-data_old
 package-lock.json
-launch_demo.sh

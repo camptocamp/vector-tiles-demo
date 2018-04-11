@@ -8,27 +8,7 @@
 
 ## Quick setup
 
-### You already have SwitzerlandMobility data
-
-* Clone the repository :
-`git clone https://github.com/camptocamp/vector-tiles-demo.git` in a terminal
-* move the data : geometryroute_2018-02-16.tgz into the vector-tiles-demo/data directory (create it if it does not exist)
-* download GeoJSON of SBB POI from this page `https://data.sbb.ch/explore/dataset/station-didok/export/` and put it in the vector-tiles-demo/data directory
-* go to the root directory of the project and type the following command
-```
-docker-compose -f prepare_data.yml build conversion && \
-docker-compose -f prepare_data.yml build dirty-reprojection && \
-docker-compose -f prepare_data.yml build generate-tiles && \
-docker-compose -f prepare_data.yml run conversion && \
-docker-compose -f prepare_data.yml run dirty-reprojection && \
-docker-compose -f prepare_data.yml run generate-tiles && \
-docker-compose -f docker-compose-prod.yml up --build
-```
-
-### You do not have SwitzerlandMobility data
-
-* contact Kalaboum, if you are authorized to have acces to switzerland mobility data, he will provide you with a one-line command which starts the app
-
+* copy paste build commands from https://confluence.camptocamp.com/confluence/display/GS/Vector+Tiles+internship
 ## See the awesome result :
 * open a browser at http://localhost:8000
 
