@@ -16,13 +16,7 @@
 * download GeoJSON of SBB POI from this page `https://data.sbb.ch/explore/dataset/station-didok/export/` and put it in the vector-tiles-demo/data directory
 * go to the root directory of the project and type the following command
 ```
-docker-compose -f prepare_data.yml build conversion && \
-docker-compose -f prepare_data.yml build dirty-reprojection && \
-docker-compose -f prepare_data.yml build generate-tiles && \
-docker-compose -f prepare_data.yml run conversion && \
-docker-compose -f prepare_data.yml run dirty-reprojection && \
-docker-compose -f prepare_data.yml run generate-tiles && \
-docker-compose -f docker-compose-prod.yml up --build
+./build_all.sh
 ```
 
 ### You do not have SwitzerlandMobility data
