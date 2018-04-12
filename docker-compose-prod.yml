@@ -1,10 +1,5 @@
 version: "2"
 services:
-  spriteServer:
-    image: nhofer/sprite-sbb
-    build: tiles/sprites
-    ports:
-      - "7800:7800"
   SwitzerlandMobilityTiles:
     image: klokantech/tileserver-gl
     ports:
