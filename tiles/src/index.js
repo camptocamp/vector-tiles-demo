@@ -4,7 +4,7 @@ import Swiss, { crs, latLngBounds, project, unproject } from 'leaflet-tilelayer-
 import MapboxGL from './modules/mapbox-gl-leaflet-fork';
 import toWebSwiss from './modules/lv95-web-swiss';
 
-const switzerlandMobilityStyle = 'styles/SwissTopoHiking/hiking_poi_web_swiss.json';
+const switzerlandMobilityStyle = 'styles/SwissTopoHiking/CHMobility_poi_web_swiss.json';
 
 const map = new Map('map', {
   crs,

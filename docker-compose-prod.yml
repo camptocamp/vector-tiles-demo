@@ -11,7 +11,7 @@ services:
       - "8080:80"
     volumes:
       - ./data:/data
-    command: hiking_poi_web_swiss.mbtiles
+    command: CHMobility_poi_web_swiss.mbtiles
   web:
     image: nhofer/tile-demo-dev
     build: .
