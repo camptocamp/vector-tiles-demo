@@ -1,0 +1,14 @@
+version: "2"
+services:
+  conversion:
+    build: data_preparation/conversion
+    volumes:
+      - ./data:/opt/data
+  dirty-reprojection:
+    build: data_preparation/dirty-reprojection
+    volumes:
+      - ./data:/opt/data
+  generate-tiles:
+    build: data_preparation/generate-tiles
+    volumes:
+      - ./data:/opt/data

@@ -26,8 +26,8 @@ def to_web_swiss(coordinates):
 
 
 def main():
-    inFile = open(sys.argv[1], "r")
-    outFile = open(sys.argv[2], "w")
+    inFile = open(sys.argv[1], "r", encoding='utf-8')
+    outFile = open(sys.argv[2], "w", encoding='utf-8')
     bigJSONObjects = json.load(inFile)
     features = bigJSONObjects["features"]
     for feature in features:

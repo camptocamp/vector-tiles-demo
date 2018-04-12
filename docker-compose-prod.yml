@@ -10,9 +10,6 @@ services:
   web:
     image: nhofer/tile-demo-dev
     build: .
-    volumes:
-      - ./tiles:/var/app
     command: npm run-script docker
-    working_dir: /var/app
     ports: 
       - "8000:8000"
