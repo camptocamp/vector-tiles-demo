@@ -10,7 +10,7 @@
   "sources": {
     "hiking_schweiz_mobil": {
       "type": "vector",
-      "url": "http://localhost:8080/data/hiking_poi_web_swiss.json"
+      "url": "http://localhost:8080/data/CHMobility_poi_web_swiss.json"
     }
   },
   "sprite": "http://localhost:7800/transports",

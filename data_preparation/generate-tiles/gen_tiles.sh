@@ -13,5 +13,5 @@ echo "Generate vector tiles for POI..."
 tippecanoe -f -o data/POI_SBB.mbtiles -s EPSG:3857 -r1 --minimum-zoom=0 --maximum-zoom=13 -l poi_sbb -y name -y verkehrsmittel ${POI_DATASET_PREFIX}_lv95_web_swiss.geojson
 
 echo "Joining the tiles..."
-tile-join -o data/hiking_poi_web_swiss.mbtiles  ${OUTPUT_MBTILES} data/POI_SBB.mbtiles 
+tile-join -o data/CHMobility_poi_web_swiss.mbtiles  ${OUTPUT_MBTILES} data/POI_SBB.mbtiles 
 
