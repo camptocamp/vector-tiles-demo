@@ -21,11 +21,11 @@ function toWebSwiss(point) {
     ((point.y - Southmost) * scaleFactor) + SouthmostMerc,
   );
 }
-function inverseToWebSwiss(point) {
+function fromWebSwiss(point) {
   return new Point(
     ((point.x - WestmostMerc) / scaleFactor) + Westmost,
     ((point.y - SouthmostMerc) / scaleFactor) + Southmost,
   );
 }
 
-export { toWebSwiss, inverseToWebSwiss };
+export { toWebSwiss, fromWebSwiss };
