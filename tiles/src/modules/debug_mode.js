@@ -39,7 +39,7 @@ function eventToHTMLString(L, event, map) {
   const fakeLatLngPretty = formatCoordinates(fakeLatLng, 5);
 
   return [
-    `screenCoordinates x: ${event.clientX}, y: ${event.clientY}`,
+    `screenCoordinates x: ${originalEvent.clientX}, y: ${originalEvent.clientY}`,
     `${latLngPretty}`,
     `WebMercator coords ${WebMercatorPretty}`,
     `Fake WebMercator coords for mapbox-gl ${webSwissMercatorPretty}`,
