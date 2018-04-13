@@ -9,6 +9,7 @@
 ## Quick setup
 
 * copy paste build commands from https://confluence.camptocamp.com/confluence/display/GS/Vector+Tiles+internship
+
 ## See the awesome result :
 * open a browser at http://localhost:8000
 
