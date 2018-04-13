@@ -17,37 +17,34 @@ function toggleVisible() {
   }
 }
 
-function removeQuotes(anyString) {
-  return anyString.replace(/"/g, '');
+function formatCoordinates(coordinates, decimals = 0) {
+  return Object.entries(coordinates).map((keyValue) => {
+    const [key, value] = keyValue;
+    const roundedValue = value.toFixed(decimals);
+    return `${key}: ${roundedValue}`;
+  }).join(', ');
 }
 
-function eventToHTMLString(L, ev, map) {
-  const event = ev.originalEvent;
-  const latlng = map.mouseEventToLatLng(event);
-  const WebMercator = L.CRS.EPSG3857.project(latlng);
-  const webSwissMercator = fromWebSwiss(WebMercator);
+function eventToHTMLString(L, event, map) {
+  const { originalEvent } = event;
+
+  const latLng = map.mouseEventToLatLng(originalEvent);
+  const webMercator = L.CRS.EPSG3857.project(latLng);
+  const webSwissMercator = fromWebSwiss(webMercator);
   const fakeLatLng = L.CRS.EPSG3857.unproject(webSwissMercator);
 
-  latlng.lat = latlng.lat.toFixed(3);
-  latlng.lng = latlng.lng.toFixed(3);
-  const latlngPretty = removeQuotes(JSON.stringify(latlng));
+  const latLngPretty = formatCoordinates(latLng, 3);
+  const WebMercatorPretty = formatCoordinates(webMercator);
+  const webSwissMercatorPretty = formatCoordinates(webSwissMercator);
+  const fakeLatLngPretty = formatCoordinates(fakeLatLng, 5);
 
-  WebMercator.x = Math.round(WebMercator.x);
-  WebMercator.y = Math.round(WebMercator.y);
-  const WebMercatorPretty = removeQuotes(JSON.stringify(WebMercator));
-
-  webSwissMercator.x = Math.round(webSwissMercator.x);
-  webSwissMercator.y = Math.round(webSwissMercator.y);
-  const webSwissMercatorPretty = removeQuotes(JSON.stringify(webSwissMercator));
-
-  fakeLatLng.lat = fakeLatLng.lat.toFixed(5);
-  fakeLatLng.lng = fakeLatLng.lng.toFixed(5);
-  const fakeLatLngPretty = removeQuotes(JSON.stringify(fakeLatLng));
-  return `screenCoordinates x : ${event.clientX} y :${event.clientY}<br />${
-    JSON.stringify(latlngPretty)}<br />
-    WebMercator coords ${JSON.stringify(WebMercatorPretty)}<br />
-    Fake WebMercator coords for mapbox-gl ${JSON.stringify(webSwissMercatorPretty)}
-    Fake latlng ${JSON.stringify(fakeLatLngPretty)}`;
+  return [
+    `screenCoordinates x: ${event.clientX}, y: ${event.clientY}`,
+    `${latLngPretty}`,
+    `WebMercator coords ${WebMercatorPretty}`,
+    `Fake WebMercator coords for mapbox-gl ${webSwissMercatorPretty}`,
+    `Fake latlng ${fakeLatLngPretty}`,
+  ].join('<br>');
 }
 
 function toggleDemoMode(glMap) {
