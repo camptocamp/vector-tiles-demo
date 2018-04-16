@@ -6,39 +6,18 @@
     "x": 0,
     "y": 0
   },
-  "bus_left_180": {
+  "train_left": {
     "height": 141,
     "pixelRatio": 0.1,
     "width": 141,
     "x": 141,
     "y": 0
-  },
-  "train_left": {
-    "height": 141,
-    "pixelRatio": 0.1,
-    "width": 141,
-    "x": 0,
-    "y": 141
-  },
-  "train_left_180": {
-    "height": 141,
-    "pixelRatio": 0.1,
-    "width": 141,
-    "x": 141,
-    "y": 141
   },
   "tram_left": {
     "height": 141,
     "pixelRatio": 0.1,
     "width": 141,
-    "x": 282,
-    "y": 0
-  },
-  "tram_left_180": {
-    "height": 141,
-    "pixelRatio": 0.1,
-    "width": 141,
-    "x": 423,
-    "y": 0
+    "x": 0,
+    "y": 141
   }
 }

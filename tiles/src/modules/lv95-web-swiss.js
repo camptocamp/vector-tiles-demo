@@ -15,10 +15,17 @@ const scaleFactor = Math.min(
   WGS_84_CIRCUMFERENCE_METERS / (Eastmost - Westmost),
   WGS_84_CIRCUMFERENCE_METERS / (Northmost - Southmost),
 );
-
-export default function toWebSwiss(point) {
+function toWebSwiss(point) {
   return new Point(
     ((point.x - Westmost) * scaleFactor) + WestmostMerc,
     ((point.y - Southmost) * scaleFactor) + SouthmostMerc,
   );
 }
+function fromWebSwiss(point) {
+  return new Point(
+    ((point.x - WestmostMerc) / scaleFactor) + Westmost,
+    ((point.y - SouthmostMerc) / scaleFactor) + Southmost,
+  );
+}
+
+export { toWebSwiss, fromWebSwiss };

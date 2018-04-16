@@ -4,4 +4,4 @@ __pycache__
 *.mbtiles
 node_modules/
 data
-package-lock.json
+tiles/dist
