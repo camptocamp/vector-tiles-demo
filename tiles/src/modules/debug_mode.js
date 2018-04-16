@@ -1,4 +1,5 @@
-import { fromWebSwiss } from './lv95-web-swiss';
+import { toWebSwiss } from './lv95-web-swiss';
+import { project } from 'leaflet-tilelayer-swiss';
 
 function changeButtonClass() {
   document.getElementById('debug-mode').classList.toggle('down');
@@ -30,11 +31,13 @@ function eventToHTMLString(L, event, map) {
 
   const latLng = map.mouseEventToLatLng(originalEvent);
   const webMercator = L.CRS.EPSG3857.project(latLng);
-  const webSwissMercator = fromWebSwiss(webMercator);
+  const swissCoordinates = project(latLng);
+  const webSwissMercator = toWebSwiss(swissCoordinates);
   const fakeLatLng = L.CRS.EPSG3857.unproject(webSwissMercator);
 
   const latLngPretty = formatCoordinates(latLng, 3);
   const WebMercatorPretty = formatCoordinates(webMercator);
+  const swissCoordinatesPretty = formatCoordinates(swissCoordinates);
   const webSwissMercatorPretty = formatCoordinates(webSwissMercator);
   const fakeLatLngPretty = formatCoordinates(fakeLatLng, 5);
 
@@ -42,6 +45,7 @@ function eventToHTMLString(L, event, map) {
     `screenCoordinates x: ${originalEvent.clientX}, y: ${originalEvent.clientY}`,
     `${latLngPretty}`,
     `WebMercator coords ${WebMercatorPretty}`,
+    `Swiss Coordinate (LV95) ${swissCoordinatesPretty}`,
     `Fake WebMercator coords for mapbox-gl ${webSwissMercatorPretty}`,
     `Fake latlng ${fakeLatLngPretty}`,
   ].join('<br>');
