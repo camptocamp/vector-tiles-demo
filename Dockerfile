@@ -19,5 +19,3 @@ RUN npm run dev
 EXPOSE 8000
 
 CMD ["python3", "-m" , "http.server"]
-
-

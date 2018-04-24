@@ -1,12 +1,13 @@
-import { toWebSwiss } from './lv95-web-swiss';
+import { CRS } from 'leaflet';
 import { project } from 'leaflet-tilelayer-swiss';
-
-function changeButtonClass() {
-  document.getElementById('debug-mode').classList.toggle('down');
-}
+import { toWebSwiss } from './lv95-web-swiss';
 
 function toggleTileBoundaries(glMap) {
   glMap.showTileBoundaries = !glMap.showTileBoundaries;
+}
+
+function toggleCollisionBoxes(glMap) {
+  glMap.showCollisionBoxes = !glMap.showCollisionBoxes;
 }
 
 function toggleVisible() {
@@ -26,14 +27,14 @@ function formatCoordinates(coordinates, decimals = 0) {
   }).join(', ');
 }
 
-function eventToHTMLString(L, event, map) {
+function eventToHTMLString(event, map) {
   const { originalEvent } = event;
 
   const latLng = map.mouseEventToLatLng(originalEvent);
-  const webMercator = L.CRS.EPSG3857.project(latLng);
+  const webMercator = CRS.EPSG3857.project(latLng);
   const swissCoordinates = project(latLng);
   const webSwissMercator = toWebSwiss(swissCoordinates);
-  const fakeLatLng = L.CRS.EPSG3857.unproject(webSwissMercator);
+  const fakeLatLng = CRS.EPSG3857.unproject(webSwissMercator);
 
   const latLngPretty = formatCoordinates(latLng, 3);
   const WebMercatorPretty = formatCoordinates(webMercator);
@@ -52,8 +53,8 @@ function eventToHTMLString(L, event, map) {
 }
 
 function toggleDemoMode(glMap) {
-  changeButtonClass();
   toggleTileBoundaries(glMap);
+  toggleCollisionBoxes(glMap);
   toggleVisible();
 }
 
