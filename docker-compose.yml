@@ -8,11 +8,7 @@ services:
       - ./data:/data
     command: CHMobility_poi_web_swiss.mbtiles
   web:
-    image: nhofer/tile-demo-dev
     build: .
-    volumes:
-      - ./tiles:/var/app
     command: npm run-script docker
-    working_dir: /var/app
-    ports: 
+    ports:
       - "8000:8000"
